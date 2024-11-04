@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from .models import CustomUser
 
 class UserRegistrationForm(forms.ModelForm):
@@ -15,3 +16,7 @@ class UserRegistrationForm(forms.ModelForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
+
+class UserLoginForm(AuthenticationForm):
+    username = forms.CharField(label='Email', max_length=254)
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
